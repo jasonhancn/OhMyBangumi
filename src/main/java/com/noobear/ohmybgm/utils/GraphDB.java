@@ -1,5 +1,7 @@
 package com.noobear.ohmybgm.utils;
 
+import com.noobear.ohmybgm.config.Neo4jBuilder;
+import com.noobear.ohmybgm.config.Neo4jConfig;
 import com.noobear.ohmybgm.entity.Anime;
 import lombok.extern.slf4j.Slf4j;
 import org.neo4j.driver.v1.*;
@@ -16,9 +18,10 @@ public class GraphDB {
     private Driver driver;
 
     public GraphDB() {
+        Neo4jConfig neo4jConfig = Neo4jBuilder.build();
         Config config = Config.build().withLogging(Slf4jLogger::new).toConfig();
-        driver = GraphDatabase.driver("bolt://localhost:7687",
-                AuthTokens.basic("neo4j", "123456"), config);
+        driver = GraphDatabase.driver("bolt://" + neo4jConfig.host() + ":" + neo4jConfig.port(),
+                AuthTokens.basic(neo4jConfig.username(), neo4jConfig.password()), config);
     }
 
     public void deleteAll() {
