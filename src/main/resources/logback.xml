@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}][%logger{1}][%thread][%level] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <timestamp key="byDay" datePattern="yyyyMMdd"/>
+
+    <appender name="FILE_INFO" class="ch.qos.logback.core.FileAppender">
+        <file>log_${byDay}.log</file>
+        <append>true</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}][%logger{1}][%thread][%-5level] %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE_INFO"/>
+    </root>
+
+</configuration>
