@@ -26,10 +26,10 @@ public class GraphDB {
 
     public void deleteAll() {
         Session session = driver.session();
-        session.run("MATCH ()-[r]-() DELETE r");
+        session.run("MATCH ()-[r:AnimeRelation]-() DELETE r");
         session.close();
         session = driver.session();
-        session.run("MATCH (n) DELETE n");
+        session.run("MATCH (n:Anime) DELETE n");
         session.close();
     }
 
@@ -54,7 +54,7 @@ public class GraphDB {
         Session session = driver.session();
         String cypher = "MATCH (a:Anime),(b:Anime) WHERE "
                 + "a.bgmId={srcId} AND b.bgmId={dstId} "
-                + "CREATE p=(a)-[:Relation{type:{relation}}]->(b)";
+                + "CREATE p=(a)-[:AnimeRelation{type:{relation}}]->(b)";
         session.run(cypher, Values.parameters(
                 "srcId", srcId,
                 "dstId", dstId,
