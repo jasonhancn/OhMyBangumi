@@ -66,9 +66,9 @@ class Exec {
         animeList.forEach(p -> idSet.add(p.getBgmId()));
         for (Anime anime : animeList) {
             for (String relationId : anime.getRelations().keySet()) {
-                if (idSet.contains(relationId)) {
-                    graphDB.createAnimeRelation(anime.getBgmId(), relationId,
-                            anime.getRelations().get(relationId));
+                String relationType = anime.getRelations().get(relationId);
+                if (!"其他".equals(relationType) && idSet.contains(relationId)) {
+                    graphDB.createAnimeRelation(anime.getBgmId(), relationId, relationType);
                 }
             }
         }
