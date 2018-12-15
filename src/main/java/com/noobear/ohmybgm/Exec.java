@@ -67,7 +67,9 @@ class Exec {
         for (Anime anime : animeList) {
             for (String relationId : anime.getRelations().keySet()) {
                 String relationType = anime.getRelations().get(relationId);
-                if (!"其他".equals(relationType) && idSet.contains(relationId)) {
+                if (!"角色出演".equals(relationType)
+                        && !"其他".equals(relationType)
+                        && idSet.contains(relationId)) {
                     graphDB.createAnimeRelation(anime.getBgmId(), relationId, relationType);
                 }
             }
